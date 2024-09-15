@@ -4,23 +4,23 @@ const UserModel = require('../models/user');
 const bcrypt = require('bcrypt')
 const router = express.Router();
 const jwt = require('jsonwebtoken');
-const cookieParser = require('cookie-parser');
+const cookieParser = require('cookie-parser')
 
 router.post('/register', async (req, res) => {
   const { username, password } = req.body;
-  const user = UserModel.findOne({username})
+  const user = await UserModel.findOne({username})
   if(user){
     return res.json({message: 'user exists'})
   }
   const hashedpassword = await bcrypt.hash(password ,10)
-  const newuser = new UserModel({username , password: hashedpassword})
+  const newuser =  new UserModel({username , password: hashedpassword})
   await newuser.save()
   return res.json({message: 'record saved ! '})
   
 });
 router.post('/login' , async(req,res)=>{
   const {username , password} = req.body;
-  const user = await UserModel.findOne()
+  const user = await UserModel.findOne({username})
   if(!user){
     return res.json({message : 'user not found !'})
   }
@@ -29,7 +29,7 @@ router.post('/login' , async(req,res)=>{
     return res.json({message : 'wrong credentials'})
   }
   const token = jwt.sign({id: user._id}, "secret");
-  res.cookie("token" , token)
+  res.cookie("token" ,token)
   return res.json({message:"successfully logged" , id: user._id})
 
 })
