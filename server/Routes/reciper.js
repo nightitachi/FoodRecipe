@@ -19,5 +19,9 @@ router.post('/createdrecipe', (req, res) => {
     return res.status(500).json({ error: 'An error occurred while creating the recipe.' });
   });
 });
-
+router.get('/recipes' , (req,res)=>{
+  RecipeModel.find()
+  .then(recipes=> {return res.json(recipes)})
+  .catch(err=> res.json(err))
+})
 module.exports = router;
