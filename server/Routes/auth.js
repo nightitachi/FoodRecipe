@@ -4,7 +4,6 @@ const UserModel = require('../models/user');
 const bcrypt = require('bcrypt')
 const router = express.Router();
 const jwt = require('jsonwebtoken');
-const cookieParser = require('cookie-parser')
 
 router.post('/register', async (req, res) => {
   const { username, password } = req.body;

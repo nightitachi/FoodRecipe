@@ -8,11 +8,15 @@ const RecipeRouter = require('./Routes/reciper');
 
 const app = express();
 
-app.use(cors())
+app.use(cors({
+  origin: ["http://localhost:3000"],
+  methods:["GET" ,"POST"],
+  credentials: true
+}))
 app.use(cookieParser());
 app.use(express.json());
 app.use("/auth", userRouter);
-app.use("/rcipe" , RecipeRouter)
+app.use('/rcipe' , RecipeRouter)
 mongoose.connect("mongodb://127.0.0.1:27017/recipeapp");
 
 app.listen(3001, () => {
