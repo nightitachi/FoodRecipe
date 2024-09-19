@@ -16,7 +16,7 @@ app.use(cors({
 app.use(cookieParser());
 app.use(express.json());
 app.use("/auth", userRouter);
-app.use('/rcipe' , RecipeRouter)
+app.use('/recipe' , RecipeRouter)
 mongoose.connect("mongodb://127.0.0.1:27017/recipeapp");
 
 app.listen(3001, () => {
