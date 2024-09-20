@@ -32,5 +32,8 @@ router.post('/login' , async(req,res)=>{
   return res.json({message:"successfully logged" , id: user._id})
 
 })
-
+router.get('/logout' , (req,res)=>{
+  res.clearCookie("token")
+  res.json({message:"success"})
+})
 module.exports = router;
